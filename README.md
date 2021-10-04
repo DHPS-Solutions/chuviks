@@ -12,13 +12,13 @@ veldig midlertig
 - så integrere alt i et continuous program
 
 ## flow
-ARDUINO
+###ARDUINO
 - bruker lys og evt. farge sensor til å finne start pos. til rubiks kube
 - starte programmet som løser en kube med start posisjonen som argument
-C programmet
+###C programmet
 - løser kuben
 - lager en output som er en serie med "moves" som skal utføres for å løse kuben
-ARDUINO
+###ARDUINO
 - leser og "parser" outputen fra C programmet
 - utløser instruksjonene fra outputen og styrer servo motorer som løser kuben.
 - voila
