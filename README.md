@@ -22,3 +22,5 @@ veldig midlertig
 - leser og "parser" outputen fra C programmet
 - utløser instruksjonene fra outputen og styrer servo motorer som løser kuben.
 - voila
+
+Logo: https://www.freelogodesign.org/manager/showcase/9a507fc0bd3742859223c8b157ff9db9
