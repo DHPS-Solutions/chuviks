@@ -4,6 +4,8 @@ struct Cube {
     int pieces[6][9];
 };
 
+struct Cube cube;
+
 // changes the position of the cube's pieces
 void moveR();
 void moveL();
@@ -15,10 +17,11 @@ void moveB();
 struct Cube setCubeState();
 void printCube(struct Cube);
 
-struct Cube cube;
-
 int main() {
     cube = setCubeState(cube);
+    printCube(cube);
+    moveR();
+    printf("Made an R move");
     printCube(cube);
     return 0;
 }
@@ -40,6 +43,42 @@ struct Cube setCubeState() {
 }
 
 // cube roatitions
+// this entire function should be rewritten using a for loop
+void moveR() {
+    // necessairy because it will be overwritten
+    int oldcahce[3] = { cube.pieces[3][2], cube.pieces[3][5], cube.pieces[3][8] };
+    int newcahce[3];
+    cube.pieces[3][2] = cube.pieces[0][2];
+    cube.pieces[3][5] = cube.pieces[0][5];
+    cube.pieces[3][8] = cube.pieces[0][8];
+
+    // next permutation
+    newcahce[0] = cube.pieces[5][2];
+    newcahce[1] = cube.pieces[5][5];
+    newcahce[2] = cube.pieces[5][8];
+    cube.pieces[5][2] = oldcahce[0];
+    cube.pieces[5][5] = oldcahce[1];
+    cube.pieces[5][8] = oldcahce[2];
+
+    // next permutation
+    oldcahce[0] = newcahce[0];
+    oldcahce[1] = newcahce[1];
+    oldcahce[2] = newcahce[2];
+    newcahce[0] = cube.pieces[4][2];
+    newcahce[1] = cube.pieces[4][5];
+    newcahce[2] = cube.pieces[4][8];
+    cube.pieces[4][2] = oldcahce[0];
+    cube.pieces[4][5] = oldcahce[1];
+    cube.pieces[4][8] = oldcahce[2];
+
+    // last permutation
+    oldcahce[0] = newcahce[0];
+    oldcahce[1] = newcahce[1];
+    oldcahce[2] = newcahce[2];
+    cube.pieces[0][2] = oldcahce[0];
+    cube.pieces[0][5] = oldcahce[1];
+    cube.pieces[0][8] = oldcahce[2];
+}
 
 
 void printCube(struct Cube c) {
