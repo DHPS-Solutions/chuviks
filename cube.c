@@ -15,8 +15,10 @@ void moveB();
 struct Cube setCubeState();
 void printCube(struct Cube);
 
+struct Cube cube;
+
 int main() {
-    struct Cube cube = setCubeState();
+    cube = setCubeState(cube);
     printCube(cube);
     return 0;
 }
@@ -36,6 +38,9 @@ struct Cube setCubeState() {
     }
     return c;
 }
+
+// cube roatitions
+
 
 void printCube(struct Cube c) {
     char colors[6][10] = { "green", "orange", "red", "white", "yellow", "blue" };
