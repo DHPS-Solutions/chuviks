@@ -1,0 +1,18 @@
+cube representation:
+9 pieces per face. 6 faces.
+Assuming the cubes faces are layed out flat
+color, position in space -> array position
+green, front -> 0th face
+orange, left -> 1st face
+red, right -> 2nd face
+white, up -> 3rd face
+yellow, down -> 4th face
+blue, back -> 5th face
+
+piece representation;
+0 -> green
+1 -> orange
+2 -> red
+3 -> white
+4 -> yellow
+5 -> blue
