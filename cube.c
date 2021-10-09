@@ -10,13 +10,13 @@ int FACES = 6;
 int PIECESPF = 9;
 
 // changes the position of the cube's pieces
+void rotateFace(int);
+void moveF();
 void moveR();
 void moveL();
 void moveU();
 void moveD();
-void moveF();
 void moveB();
-void rotateFace(int);
 
 struct Cube setCubeState();
 void printCube(struct Cube);
@@ -25,16 +25,10 @@ int main() {
     cube = setCubeState(cube);
     printCube(cube);
     moveR();
+    moveF();
     moveL();
-    printf("Made R and L moves\n");
-    printCube(cube);
-    moveR();
-    moveR();
-    moveR();
-    moveL();
-    moveL();
-    moveL();
-    printf("Made R3 and L3 moves to solve cube\n");
+    moveF();
+    printf("Moves: R, F, L, F");
     printCube(cube);
     return 0;
 }
@@ -64,9 +58,37 @@ void rotateFace(int face) {
     temp.pieces[face][6] = cube.pieces[face][8];
     temp.pieces[face][7] = cube.pieces[face][5];
     temp.pieces[face][8] = cube.pieces[face][2];
+
+    cube = temp;
 }
 
 // cube roatitions
+void moveF() {
+    struct Cube temp = cube;
+    // left face to up face
+    temp.pieces[3][8] = cube.pieces[1][2];
+    temp.pieces[3][7] = cube.pieces[1][5];
+    temp.pieces[3][6] = cube.pieces[1][8];
+
+    // down face to left face
+    temp.pieces[1][2] = cube.pieces[4][0];
+    temp.pieces[1][5] = cube.pieces[4][1];
+    temp.pieces[1][8] = cube.pieces[4][2];
+
+    // right face to down face
+    temp.pieces[4][0] = cube.pieces[2][6];
+    temp.pieces[4][1] = cube.pieces[2][3];
+    temp.pieces[4][2] = cube.pieces[2][0];
+
+    // up face to right face
+    temp.pieces[2][0] = cube.pieces[3][6];
+    temp.pieces[2][3] = cube.pieces[3][7];
+    temp.pieces[2][6] = cube.pieces[3][8];
+
+    cube = temp;
+    // roate entire front face
+    rotateFace(0);
+}
 void moveR() {
     struct Cube temp = cube;
     // front face to up face
