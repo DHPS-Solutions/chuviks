@@ -15,20 +15,25 @@ void moveF();
 void moveR();
 void moveL();
 void moveU();
-void moveD();
 void moveB();
+void moveD();
 
 struct Cube setCubeState();
 void printCube(struct Cube);
 
 int main() {
     cube = setCubeState(cube);
+    // print solved state
     printCube(cube);
+    // make moves for testing purposes
+    moveU();
     moveR();
-    moveF();
     moveL();
     moveF();
-    printf("Moves: R, F, L, F");
+    moveB();
+    moveD();
+    // print moves and current state
+    printf("Moves: U, R, L, F, B, D");
     printCube(cube);
     return 0;
 }
@@ -143,6 +148,86 @@ void moveL() {
     rotateFace(1);
 }
 
+void moveU() {
+    struct Cube temp = cube;
+    // right face to front face
+    temp.pieces[0][0] = cube.pieces[2][0];
+    temp.pieces[0][1] = cube.pieces[2][1];
+    temp.pieces[0][2] = cube.pieces[2][2];
+
+    // front face to left face
+    temp.pieces[1][0] = cube.pieces[0][0];
+    temp.pieces[1][1] = cube.pieces[0][1];
+    temp.pieces[1][2] = cube.pieces[0][2];
+
+    // left face to back face
+    temp.pieces[5][8] = cube.pieces[1][0];
+    temp.pieces[5][7] = cube.pieces[1][1];
+    temp.pieces[5][6] = cube.pieces[1][2];
+
+    // back face to right face
+    temp.pieces[2][0] = cube.pieces[5][8];
+    temp.pieces[2][1] = cube.pieces[5][7];
+    temp.pieces[2][2] = cube.pieces[5][6];
+
+    cube = temp;
+    // roate entire up face
+    rotateFace(3);
+}
+
+void moveB() {
+    struct Cube temp = cube;
+    // right face to up face
+    temp.pieces[3][0] = cube.pieces[2][2];
+    temp.pieces[3][1] = cube.pieces[2][5];
+    temp.pieces[3][2] = cube.pieces[2][8];
+
+    // up face to left face
+    temp.pieces[1][6] = cube.pieces[3][0];
+    temp.pieces[1][3] = cube.pieces[3][1];
+    temp.pieces[1][0] = cube.pieces[3][2];
+
+    // left face to down face
+    temp.pieces[4][8] = cube.pieces[1][6];
+    temp.pieces[4][7] = cube.pieces[1][3];
+    temp.pieces[4][6] = cube.pieces[1][0];
+
+    // down face to right face
+    temp.pieces[2][2] = cube.pieces[4][8];
+    temp.pieces[2][5] = cube.pieces[4][7];
+    temp.pieces[2][8] = cube.pieces[4][6];
+
+    cube = temp;
+    // roate entire back face
+    rotateFace(5);
+}
+
+void moveD() {
+    struct Cube temp = cube;
+    // left face to front face
+    temp.pieces[0][6] = cube.pieces[1][6];
+    temp.pieces[0][7] = cube.pieces[1][7];
+    temp.pieces[0][8] = cube.pieces[1][8];
+
+    // front face to right face
+    temp.pieces[2][6] = cube.pieces[0][6];
+    temp.pieces[2][7] = cube.pieces[0][7];
+    temp.pieces[2][8] = cube.pieces[0][8];
+
+    // right face to back face
+    temp.pieces[5][2] = cube.pieces[2][6];
+    temp.pieces[5][1] = cube.pieces[2][7];
+    temp.pieces[5][0] = cube.pieces[2][8];
+
+    // back face to left face
+    temp.pieces[1][6] = cube.pieces[5][2];
+    temp.pieces[1][7] = cube.pieces[5][1];
+    temp.pieces[1][8] = cube.pieces[5][0];
+
+    cube = temp;
+    // roate entire down face
+    rotateFace(4);
+}
 
 void printCube(struct Cube c) {
     char colors[6][10] = { "green", "orange", "red", "white", "yellow", "blue" };
