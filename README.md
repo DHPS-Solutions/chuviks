@@ -9,6 +9,6 @@ Spits out a sequence of moves that eventually will be sent to a microcontroller 
 - Run the solving program with the starting position as it's input
 - Solving program returns a sequence of moves into a text file that can be read by a microcontroller and translated into moves in servo motors. F.ex. the sequence necessairy to get to a solved state might be R, F2, L, U. This would be translated into: move right servo motor, move front servo motor x 2, and so on.
 
-### See helpers/definitions for demystification of the notation being used and how the Rubik'S Cube is represented in C code.
+### See directory 'helpers/' for demystification of the notation being used and how the Rubik'S Cube is represented in C code.
 
 Logo: https://www.freelogodesign.org/manager/showcase/9a507fc0bd3742859223c8b157ff9db9
