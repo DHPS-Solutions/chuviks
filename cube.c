@@ -4,7 +4,10 @@ struct Cube {
     int pieces[6][9];
 };
 
+// globals
 struct Cube cube;
+int FACES = 6;
+int PIECESPF = 9;
 
 // changes the position of the cube's pieces
 void moveR();
@@ -13,6 +16,7 @@ void moveU();
 void moveD();
 void moveF();
 void moveB();
+void rotateFace(int);
 
 struct Cube setCubeState();
 void printCube(struct Cube);
@@ -21,7 +25,16 @@ int main() {
     cube = setCubeState(cube);
     printCube(cube);
     moveR();
-    printf("Made an R move");
+    moveL();
+    printf("Made R and L moves\n");
+    printCube(cube);
+    moveR();
+    moveR();
+    moveR();
+    moveL();
+    moveL();
+    moveL();
+    printf("Made R3 and L3 moves to solve cube\n");
     printCube(cube);
     return 0;
 }
@@ -31,66 +44,91 @@ int main() {
 struct Cube setCubeState() {
     struct Cube c;
     // set cube to solved state
-    int faces = sizeof(c.pieces) / sizeof(c.pieces[0]);  // gets total faces
-    int piecesPerFace = sizeof(c.pieces[0]) / sizeof(c.pieces[0][0]);  // gets total pieces per face
-
-    for (int i = 0; i < faces; i++) {
-        for (int j = 0; j < piecesPerFace; j++) {
+    for (int i = 0; i < FACES; i++) {
+        for (int j = 0; j < PIECESPF; j++) {
             c.pieces[i][j] = i;
         }
     }
     return c;
 }
 
+void rotateFace(int face) {
+    struct Cube temp = cube;
+
+    temp.pieces[face][0] = cube.pieces[face][6];
+    temp.pieces[face][1] = cube.pieces[face][3];
+    temp.pieces[face][2] = cube.pieces[face][0];
+    temp.pieces[face][3] = cube.pieces[face][7];
+    temp.pieces[face][4] = cube.pieces[face][4];
+    temp.pieces[face][5] = cube.pieces[face][1];
+    temp.pieces[face][6] = cube.pieces[face][8];
+    temp.pieces[face][7] = cube.pieces[face][5];
+    temp.pieces[face][8] = cube.pieces[face][2];
+}
+
 // cube roatitions
-// this entire function should be rewritten using a for loop
 void moveR() {
-    // necessairy because it will be overwritten
-    int oldcahce[3] = { cube.pieces[3][2], cube.pieces[3][5], cube.pieces[3][8] };
-    int newcahce[3];
-    cube.pieces[3][2] = cube.pieces[0][2];
-    cube.pieces[3][5] = cube.pieces[0][5];
-    cube.pieces[3][8] = cube.pieces[0][8];
+    struct Cube temp = cube;
+    // front face to up face
+    temp.pieces[3][2] = cube.pieces[0][2];
+    temp.pieces[3][5] = cube.pieces[0][5];
+    temp.pieces[3][8] = cube.pieces[0][8];
 
-    // next permutation
-    newcahce[0] = cube.pieces[5][2];
-    newcahce[1] = cube.pieces[5][5];
-    newcahce[2] = cube.pieces[5][8];
-    cube.pieces[5][2] = oldcahce[0];
-    cube.pieces[5][5] = oldcahce[1];
-    cube.pieces[5][8] = oldcahce[2];
+    // up face to back face
+    temp.pieces[5][2] = cube.pieces[3][2];
+    temp.pieces[5][5] = cube.pieces[3][5];
+    temp.pieces[5][8] = cube.pieces[3][8];
 
-    // next permutation
-    oldcahce[0] = newcahce[0];
-    oldcahce[1] = newcahce[1];
-    oldcahce[2] = newcahce[2];
-    newcahce[0] = cube.pieces[4][2];
-    newcahce[1] = cube.pieces[4][5];
-    newcahce[2] = cube.pieces[4][8];
-    cube.pieces[4][2] = oldcahce[0];
-    cube.pieces[4][5] = oldcahce[1];
-    cube.pieces[4][8] = oldcahce[2];
+    // back face to down face
+    temp.pieces[4][2] = cube.pieces[5][2];
+    temp.pieces[4][5] = cube.pieces[5][5];
+    temp.pieces[4][8] = cube.pieces[5][8];
 
-    // last permutation
-    oldcahce[0] = newcahce[0];
-    oldcahce[1] = newcahce[1];
-    oldcahce[2] = newcahce[2];
-    cube.pieces[0][2] = oldcahce[0];
-    cube.pieces[0][5] = oldcahce[1];
-    cube.pieces[0][8] = oldcahce[2];
+    // down face to front face
+    temp.pieces[0][2] = cube.pieces[4][2];
+    temp.pieces[0][5] = cube.pieces[4][5];
+    temp.pieces[0][8] = cube.pieces[4][8];
+
+    cube = temp;
+    // roate entire right face
+    rotateFace(2);
+}
+
+void moveL() {
+    struct Cube temp = cube;
+    // up face to front face
+    temp.pieces[0][0] = cube.pieces[3][0];
+    temp.pieces[0][3] = cube.pieces[3][3];
+    temp.pieces[0][6] = cube.pieces[3][6];
+
+    // front face to down face
+    temp.pieces[4][0] = cube.pieces[0][0];
+    temp.pieces[4][3] = cube.pieces[0][3];
+    temp.pieces[4][6] = cube.pieces[0][6];
+
+    // up down to back face
+    temp.pieces[5][0] = cube.pieces[4][0];
+    temp.pieces[5][3] = cube.pieces[4][3];
+    temp.pieces[5][6] = cube.pieces[4][6];
+
+    // up back to uo face
+    temp.pieces[3][0] = cube.pieces[5][0];
+    temp.pieces[3][3] = cube.pieces[5][3];
+    temp.pieces[3][6] = cube.pieces[5][6];
+
+    cube = temp;
+    // roate entire left face
+    rotateFace(1);
 }
 
 
 void printCube(struct Cube c) {
     char colors[6][10] = { "green", "orange", "red", "white", "yellow", "blue" };
     char positions[6][10] = { "front", "left", "right", "up", "down", "back" };
-    int faces = sizeof(c.pieces) / sizeof(c.pieces[0]);  // gets total faces
-    int piecesPerFace = sizeof(c.pieces[0]) / sizeof(c.pieces[0][0]);  // gets total pieces per face
-
     printf("----------CURRENT STATE----------\n");
-    for (int i = 0; i < faces; i++) {
+    for (int i = 0; i < FACES; i++) {
         printf("%s: ", positions[i]);
-        for (int j = 0; j < piecesPerFace; j++) {
+        for (int j = 0; j < PIECESPF; j++) {
             int pieceValue = c.pieces[i][j];
             printf("%s, ", colors[pieceValue]);
         }
