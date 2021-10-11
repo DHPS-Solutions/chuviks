@@ -1,0 +1,157 @@
+cube representation:
+9 pieces per face. 6 faces.
+Assuming the cubes faces are layed out flat
+color, position in space -> array position
+green, front -> 0th face
+orange, left -> 1st face
+red, right -> 2nd face
+white, up -> 3rd face
+yellow, down -> 4th face
+blue, back -> 5th face
+
+piece representation;
+0 -> green
+1 -> orange
+2 -> red
+3 -> white
+4 -> yellow
+5 -> blue
+
+cube rotations:
+R:
+    green to white
+    [0][2] -> [3][2]
+    [0][5] -> [3][5]
+    [0][8] -> [3][8]
+
+    white to blue
+    [3][2] -> [5][2]
+    [3][5] -> [5][5]
+    [3][8] -> [5][8]
+
+    blue to yellow
+    [5][2] -> [4][2]
+    [5][5] -> [4][5]
+    [5][8] -> [4][8]
+    
+    yellow to green
+    [4][2] -> [0][2]
+    [4][5] -> [0][5]
+    [4][8] -> [0][8]
+
+    rotate entire red face
+
+L:
+    white to green
+    [3][0] -> [0][0]
+    [3][3] -> [0][3]
+    [3][6] -> [0][6]
+
+    green to yellow
+    [0][0] -> [4][0]
+    [0][3] -> [4][3]
+    [0][6] -> [4][6]
+
+    yellow to blue
+    [4][0] -> [5][0]
+    [4][3] -> [5][3]
+    [4][6] -> [5][6]
+
+    blue to white
+    [5][0] -> [3][0]
+    [5][3] -> [3][3]
+    [5][6] -> [3][6]
+    
+    rotate entire orange face
+
+F:
+    orange to white
+    [1][2] -> [3][8]
+    [1][5] -> [3][7]
+    [1][8] -> [3][6]
+
+    yellow to orange
+    [4][0] -> [1][2]
+    [4][1] -> [1][5]
+    [4][2] -> [1][8]
+
+    red to yellow
+    [2][6] -> [4][0]
+    [2][3] -> [4][1]
+    [2][0] -> [4][2]
+
+    white to red
+    [3][6] -> [2][0]
+    [3][7] -> [2][3]
+    [3][8] -> [2][6]
+
+    rotate entire green face
+
+U:
+    red to green
+    [2][0] -> [0][0]
+    [2][1] -> [0][1]
+    [2][2] -> [0][2]
+ 
+    green to orange
+    [0][0] -> [1][0]
+    [0][1] -> [1][1]
+    [0][2] -> [1][2]
+
+    orange to blue
+    [1][0] -> [5][8]
+    [1][1] -> [5][7]
+    [1][2] -> [5][6]
+
+    blue to red
+    [5][8] -> [2][0]
+    [5][7] -> [2][1]
+    [5][6] -> [2][2]
+
+    rotate entire white face
+
+B:
+    red to white
+    [2][2] -> [3][0]
+    [2][5] -> [3][1]
+    [2][8] -> [3][2]
+
+    white to orange
+    [3][0] -> [1][6]
+    [3][1] -> [1][3]
+    [3][2] -> [1][0]
+
+    orange to yellow
+    [1][6] -> [4][8]
+    [1][3] -> [4][7]
+    [1][0] -> [4][6]
+
+    yellow to red
+    [4][8] -> [1][2]
+    [4][7] -> [1][5]
+    [4][6] -> [1][8]
+
+    rotate enitre blue face
+
+D:
+    orange to green
+    [1][6] -> [0][6]
+    [1][7] -> [0][7]
+    [1][8] -> [0][8]
+
+    green to red
+    [0][6] -> [2][6]
+    [0][7] -> [2][7]
+    [0][8] -> [2][8]
+
+    red to blue
+    [2][6] -> [5][2]
+    [2][7] -> [5][1]
+    [2][8] -> [5][0]
+
+    blue to orange
+    [5][2] -> [1][6]
+    [5][1] -> [1][7]
+    [5][0] -> [1][8]
+
+    rotate entire yellow face

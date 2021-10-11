@@ -1,25 +1,14 @@
-# Chuviks
-## roadmap
+# Rubik's Cube solver in C
+Spits out a sequence of moves that eventually will be sent to a microcontroller to control servos and actually solve a physical Rubik's Cube.
+## Motivation
+- Learning C
+- Create an interesting and visual project for our portofolios
+- Having fun!
+## How it's going to work
+- Use camera's to determine a physical cube's starting position
+- Run the solving program with the starting position as it's input
+- Solving program returns a sequence of moves into a text file that can be read by a microcontroller and translated into moves in servo motors. F.ex. the sequence necessairy to get to a solved state might be R, F2, L, U. This would be translated into: move right servo motor, move front servo motor x 2, and so on.
 
-- lage et c program som kan løse en rubiks kube fra enhver start posisjon
-- optimilisere programmet til å kunne løse rubiks kuben effektivt
-- programmet outputter hvilke moves som må til for å løse kuben i et format som kan "parses" av en arudiono
-  Eks:
-  r2, l, u, ......, hvor r står for høyre servo motor f.eks.
-- arduino styrer servo motorer som løser kuben
-- arduino har sensorer som kan finne ut av startposisjonen til kuben
-- så integrere alt i et continuous program
-
-## flow
-### ARDUINO
-- bruker lys og evt. farge sensor til å finne start pos. til rubiks kube
-- starte programmet som løser en kube med start posisjonen som argument
-### C programmet
-- løser kuben
-- lager en output som er en serie med "moves" som skal utføres for å løse kuben
-### ARDUINO
-- leser og "parser" outputen fra C programmet
-- utløser instruksjonene fra outputen og styrer servo motorer som løser kuben.
-- voila
+### See directory 'helpers/' for demystification of the notation being used and how the Rubik'S Cube is represented in C code.
 
 Logo: https://www.freelogodesign.org/manager/showcase/9a507fc0bd3742859223c8b157ff9db9
