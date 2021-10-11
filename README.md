@@ -1,4 +1,8 @@
 # Rubik's Cube solver in C
+![size](https://img.shields.io/github/repo-size/dhps-solutions/chuviks)
+![lines](https://img.shields.io/tokei/lines/github/dhps-solutions/chuviks)
+![commits](https://img.shields.io/github/commit-activity/w/dhps-solutions/chuviks)
+
 Spits out a sequence of moves that eventually will be sent to a microcontroller to control servos and actually solve a physical Rubik's Cube.
 ## Motivation
 - Learning C
