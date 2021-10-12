@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
 
 struct Cube {
     int pieces[6][9];
@@ -18,29 +20,34 @@ void moveU();
 void moveB();
 void moveD();
 
-struct Cube setCubeState();
+struct Cube toSolvedState();
+void randomScramble(int);
 void printCube(struct Cube);
 
 int main() {
-    cube = setCubeState(cube);
+    // for random()
+    time_t t;
+    srand((unsigned) time(&t));
+
+    cube = toSolvedState(cube);
     // print solved state
     printCube(cube);
-    // make moves for testing purposes
-    moveU();
-    moveR();
-    moveL();
-    moveF();
-    moveB();
-    moveD();
+    randomScramble(15);
+    //moveU();
+    //moveR();
+    //moveL();
+    //moveF();
+    //moveB();
+    //moveD();
     // print moves and current state
-    printf("Moves: U, R, L, F, B, D");
+    //printf("Moves: U, R, L, F, B, D");
     printCube(cube);
     return 0;
 }
 
 // eventually this function should read from std in.
 // currently sets cube to solved state, subsequent to changes
-struct Cube setCubeState() {
+struct Cube toSolvedState() {
     struct Cube c;
     // set cube to solved state
     for (int i = 0; i < FACES; i++) {
@@ -49,6 +56,33 @@ struct Cube setCubeState() {
         }
     }
     return c;
+}
+
+void randomScramble(int n) {
+    for (int i = 0; i < n; i++) {
+        int r = rand() % 10;
+        switch(r) {
+           case 0:
+               moveF();
+               break;
+           case 1:
+               moveR();
+               break;
+           case 2:
+               moveL();
+               break;
+           case 3:
+               moveU();
+               break;
+           case 4:
+               moveB();
+               break;
+           case 5:
+               moveD();
+               break;
+        }
+    }
+
 }
 
 void rotateFace(int face) {
