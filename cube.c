@@ -274,7 +274,8 @@ void moveD(struct Cube *ptr)
     rotateFace(ptr, 4);
 }
 
-void move(struct Cube *ptr, char *cc) {
+void move(struct Cube *ptr, char *cc)
+{
     while (*cc != '\0') {
         switch(*cc) {
             case 'F':
