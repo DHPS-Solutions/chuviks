@@ -19,6 +19,7 @@ void moveL(struct Cube *);
 void moveU(struct Cube *);
 void moveB(struct Cube *);
 void moveD(struct Cube *);
+void move(struct Cube *, char *);
 void randomScramble(struct Cube *, int);
 struct Cube toSolvedState();
 
@@ -33,12 +34,7 @@ int main()
     struct Cube cube = toSolvedState();
     printCube(cube);
     //randomScramble(15);
-    moveF(&cube);
-    moveR(&cube);
-    moveL(&cube);
-    moveU(&cube);
-    moveB(&cube);
-    moveD(&cube);
+    move(&cube, "FRLUBD");
     printf("Moves: F R L U B D");
     printCube(cube);
     return 0;
@@ -276,6 +272,32 @@ void moveD(struct Cube *ptr)
     applyChanges(ptr, &tmp);
     // roate entire down face
     rotateFace(ptr, 4);
+}
+
+void move(struct Cube *ptr, char *cc) {
+    while (*cc != '\0') {
+        switch(*cc) {
+            case 'F':
+                moveF(ptr);
+               break;
+           case 'R':
+               moveR(ptr);
+               break;
+           case 'L':
+               moveL(ptr);
+               break;
+           case 'U':
+               moveU(ptr);
+               break;
+           case 'B':
+               moveB(ptr);
+               break;
+           case 'D':
+               moveD(ptr);
+               break;
+        }
+        cc++;
+    }
 }
 
 void printCube(struct Cube c)
